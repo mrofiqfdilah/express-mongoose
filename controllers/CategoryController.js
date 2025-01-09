@@ -1,12 +1,44 @@
 import Category from "../models/CategoryModel.js";
 
-const Create = async (req, res) => {
+const CreateCategory = async (req, res) => {
     try {
-        const StoreData = await Category.create(req.body);
+        const Data = await Category.create(req.body);
 
         return res.status(201).json({
             status: 'success',
-            data: StoreData
+            data: Data
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error.message
+        })
+    }
+}
+
+const AllCategory = async (req, res) => {
+    try {
+        const Data = await Category.find()
+
+        return res.status(200).json({
+            status: 'success',
+            data: Data
+        })
+    } catch (error) {
+        res.status(400).json({
+            status: 'fail',
+            message: error.message
+        })
+    }
+}
+
+const ShowCategory = async (req, res) => {
+    try {
+        const Data = await Category.findById(req.params.id)
+
+        return res.status(200).json({
+            status: 'success',
+            data: Data
         })
     } catch (error) {
         res.status(400).json({
@@ -17,5 +49,7 @@ const Create = async (req, res) => {
 }
 
 export {
-    Create,
+    CreateCategory,
+    AllCategory,
+    ShowCategory
 }
